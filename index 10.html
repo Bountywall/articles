@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Articles — BountyWall</title>
+  <meta name="description" content="Guides, tips, and insights about Solana and earning free crypto on BountyWall."/>
+  <meta name="robots" content="index, follow"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --off-white:#f4f7fd; --blue-50:#eff5ff; --blue-100:#dbeafe; --blue-200:#bfdbfe;
+      --blue-300:#93c5fd; --blue-400:#60a5fa; --blue-500:#3b82f6; --blue-600:#2563eb;
+      --blue-700:#1d4ed8; --ink:#0d1b2e; --ink-mid:#3d5168; --ink-light:#8fa3bb;
+      --border:#d6e4f7; --border-dark:#b8d0ed; --success:#059669;
+      --mono:'DM Mono',monospace; --serif:'Instrument Serif',serif; --sans:'DM Sans',sans-serif;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { background:var(--off-white); color:var(--ink); font-family:var(--sans); min-height:100vh; }
+    body::before { content:''; position:fixed; inset:0; background-image:radial-gradient(circle,#c3d9f5 1px,transparent 1px); background-size:28px 28px; opacity:0.4; pointer-events:none; z-index:0; }
+    body::after { content:''; position:fixed; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#2563eb,#60a5fa,#1d4ed8); z-index:200; }
+    header { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.93); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 44px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+    .logo { display:flex; align-items:baseline; gap:1px; text-decoration:none; }
+    .logo-main { font-family:var(--serif); font-size:23px; color:var(--blue-700); }
+    .logo-dot { font-family:var(--mono); font-size:14px; color:var(--blue-400); }
+    .logo-tld { font-family:var(--mono); font-size:13px; color:var(--ink-light); }
+    .back-btn { display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px; color:var(--ink-light); text-decoration:none; border:1px solid var(--border); border-radius:6px; padding:6px 14px; transition:all 0.12s; }
+    .back-btn:hover { border-color:var(--blue-400); color:var(--blue-600); }
+    main { position:relative; z-index:1; max-width:860px; margin:0 auto; padding:52px 28px 100px; }
+    .list-hero { margin-bottom:40px; }
+    .list-hero h1 { font-family:var(--serif); font-size:clamp(32px,4vw,48px); line-height:1.1; letter-spacing:-0.4px; color:var(--ink); margin-bottom:10px; }
+    .list-hero h1 em { font-style:italic; color:var(--blue-600); }
+    .list-hero p { font-family:var(--mono); font-size:11.5px; color:var(--ink-light); line-height:1.9; }
+    .articles-grid { display:flex; flex-direction:column; gap:14px; margin-bottom:32px; }
+    .article-card { background:white; border:1px solid var(--border); border-radius:12px; padding:24px 28px; box-shadow:0 1px 6px rgba(0,0,0,0.04); transition:box-shadow 0.15s,transform 0.15s,border-color 0.15s; text-decoration:none; display:block; animation:rowIn 0.3s ease both; }
+    .article-card:hover { box-shadow:0 6px 24px rgba(30,58,95,0.1); transform:translateY(-2px); border-color:var(--blue-300); }
+    .article-card:active { transform:translateY(0); }
+    .article-num { font-family:var(--mono); font-size:9.5px; color:var(--ink-light); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:8px; }
+    .article-title { font-family:var(--serif); font-size:20px; color:var(--ink); line-height:1.3; margin-bottom:6px; }
+    .article-desc { font-family:var(--mono); font-size:10.5px; color:var(--ink-light); line-height:1.7; }
+    @keyframes rowIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    footer { position:relative; z-index:1; text-align:center; padding:28px; font-family:var(--mono); font-size:10px; color:var(--ink-light); border-top:1px solid var(--border); letter-spacing:0.4px; line-height:2.2; }
+    @media (max-width:640px) { header { padding:0 18px; } main { padding:28px 14px 60px; } .article-card { padding:18px 20px; } }
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="https://bountywall.com">
+    <span class="logo-main">BountyWall</span>
+    <span class="logo-dot">.</span>
+    <span class="logo-tld">com</span>
+  </a>
+  <a class="back-btn" href="https://bountywall.com">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Explorer
+  </a>
+</header>
+<main>
+  <div class="list-hero">
+    <h1>Our <em>Articles.</em></h1>
+    <p>Guides, tips, and insights about Solana and earning free crypto.</p>
+  </div>
+  <div class="articles-grid" id="grid">
+    <a class="article-card" href="/how-to-earn-free-solana-2025.html" style="animation-delay:0s">
+      <div class="article-num">Article #1</div>
+      <div class="article-title">How to Earn Free Solana in 2025</div>
+      <div class="article-desc">A complete guide to earning free SOL through offerwalls, tasks, and crypto faucets.</div>
+    </a>
+  </div>
+</main>
+<footer>bountywall.com &nbsp;·&nbsp; articles.bountywall.com &nbsp;·&nbsp; educational &amp; research use only</footer>
+</body>
+</html>
