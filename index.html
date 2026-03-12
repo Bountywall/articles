@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Articles — BountyWall</title>
+  <meta name="description" content="Science-backed health guides, tech reviews, sports analysis and earning strategies. Real research, honest writing — no paywalls."/>
+  <meta name="robots" content="index, follow"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --off-white:#f4f7fd;
+      --blue-50:#eff5ff; --blue-100:#dbeafe; --blue-200:#bfdbfe;
+      --blue-400:#60a5fa; --blue-600:#2563eb; --blue-700:#1d4ed8;
+      --ink:#0d1b2e; --ink-mid:#3d5168; --ink-light:#8fa3bb;
+      --border:#d6e4f7; --border-dark:#b8d0ed;
+      --green:#059669; --green-bg:#ecfdf5; --green-border:#a7f3d0;
+      --mono:'DM Mono',monospace; --serif:'Instrument Serif',serif; --sans:'DM Sans',sans-serif;
+
+      /* category colours */
+      --c-health-text:#065f46; --c-health-bg:#ecfdf5; --c-health-border:#a7f3d0; --c-health-accent:#059669;
+      --c-tech-text:#1e40af; --c-tech-bg:#eff5ff; --c-tech-border:#bfdbfe; --c-tech-accent:#2563eb;
+      --c-sports-text:#9a1a1a; --c-sports-bg:#fff1f0; --c-sports-border:#fca5a5; --c-sports-accent:#c8102e;
+      --c-finance-text:#5b21b6; --c-finance-bg:#f5f3ff; --c-finance-border:#ddd6fe; --c-finance-accent:#7c3aed;
+      --c-news-text:#92400e; --c-news-bg:#fffbeb; --c-news-border:#fde68a; --c-news-accent:#d97706;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--off-white);color:var(--ink);font-family:var(--sans);min-height:100vh;overflow-x:hidden;}
+
+    body::before{content:'';position:fixed;inset:0;
+      background:
+        radial-gradient(ellipse 70% 40% at 10% 0%,rgba(37,99,235,0.07) 0%,transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 100%,rgba(96,165,250,0.06) 0%,transparent 60%),
+        radial-gradient(circle,#c3d9f5 1px,transparent 1px);
+      background-size:100% 100%,100% 100%,28px 28px;
+      opacity:1;pointer-events:none;z-index:0;}
+    body::after{content:'';position:fixed;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,#2563eb,#60a5fa,#1d4ed8);z-index:200;}
+
+    /* ── HEADER ── */
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.94);
+      backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+      padding:0 44px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{display:flex;align-items:baseline;gap:1px;text-decoration:none;}
+    .logo-main{font-family:var(--serif);font-size:23px;color:var(--blue-700);}
+    .logo-dot{font-family:var(--mono);font-size:14px;color:var(--blue-400);}
+    .logo-tld{font-family:var(--mono);font-size:13px;color:var(--ink-light);}
+    .logo-sub{font-family:var(--mono);font-size:11px;color:var(--blue-400);margin-left:6px;
+      background:var(--blue-50);border:1px solid var(--blue-200);border-radius:4px;padding:1px 7px;}
+    .back-btn{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;
+      color:var(--ink-light);text-decoration:none;border:1px solid var(--border);
+      border-radius:6px;padding:6px 14px;transition:all 0.12s;}
+    .back-btn:hover{border-color:var(--blue-400);color:var(--blue-600);}
+
+    /* ── MAIN ── */
+    main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:52px 28px 100px;}
+
+    /* ── HERO ── */
+    .list-hero{margin-bottom:44px;animation:fadeUp 0.4s ease both;}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--mono);font-size:10px;color:var(--green);
+      background:var(--green-bg);border:1px solid var(--green-border);
+      border-radius:20px;padding:4px 14px;margin-bottom:18px;}
+    .hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--green);
+      animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(5,150,105,0.5);}50%{box-shadow:0 0 0 5px rgba(5,150,105,0);}}
+    .list-hero h1{font-family:var(--serif);font-size:clamp(34px,5vw,56px);
+      line-height:1.06;letter-spacing:-0.6px;color:var(--ink);margin-bottom:12px;}
+    .list-hero h1 em{font-style:italic;color:var(--blue-600);}
+    .list-hero p{font-family:var(--mono);font-size:11.5px;color:var(--ink-light);
+      line-height:1.9;max-width:500px;}
+
+    /* ── CATEGORY FILTER TABS ── */
+    .filter-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;
+      animation:fadeUp 0.4s ease both;animation-delay:0.05s;}
+    .filter-tab{font-family:var(--mono);font-size:10px;padding:6px 14px;border-radius:20px;
+      border:1px solid var(--border);background:white;color:var(--ink-light);
+      cursor:pointer;transition:all 0.12s;white-space:nowrap;}
+    .filter-tab:hover{border-color:var(--blue-400);color:var(--blue-600);}
+    .filter-tab.active{background:var(--ink);color:white;border-color:var(--ink);}
+    .filter-tab.active-health{background:var(--c-health-accent);border-color:var(--c-health-accent);color:white;}
+    .filter-tab.active-tech{background:var(--c-tech-accent);border-color:var(--c-tech-accent);color:white;}
+    .filter-tab.active-sports{background:var(--c-sports-accent);border-color:var(--c-sports-accent);color:white;}
+    .filter-tab.active-finance{background:var(--c-finance-accent);border-color:var(--c-finance-accent);color:white;}
+    .filter-tab.active-news{background:var(--c-news-accent);border-color:var(--c-news-accent);color:white;}
+
+    /* ── FEATURED CARD (article #7 - Bam 83pts) ── */
+    .featured-card{display:grid;grid-template-columns:280px 1fr;
+      background:white;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+      box-shadow:0 4px 24px rgba(30,58,95,0.1);text-decoration:none;color:inherit;
+      margin-bottom:16px;transition:transform 0.18s,box-shadow 0.18s;
+      animation:fadeUp 0.4s ease both;animation-delay:0.08s;}
+    .featured-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(30,58,95,0.15);}
+
+    .featured-visual{background:linear-gradient(135deg,#0d1b2e 0%,#1c3359 35%,#9a1a1a 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:36px 28px;position:relative;overflow:hidden;}
+    .featured-visual::before{content:'83';position:absolute;
+      font-family:var(--mono);font-size:130px;font-weight:700;
+      color:rgba(255,255,255,0.04);line-height:1;bottom:-16px;right:0;}
+    .featured-score{font-family:var(--mono);font-size:64px;font-weight:500;
+      color:#f9a01b;line-height:1;position:relative;z-index:1;}
+    .featured-score-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.45);
+      text-transform:uppercase;letter-spacing:2px;margin-top:6px;text-align:center;
+      position:relative;z-index:1;}
+    .featured-teams{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.3);
+      margin-top:10px;text-align:center;position:relative;z-index:1;}
+
+    .featured-body{padding:28px 32px;display:flex;flex-direction:column;justify-content:center;gap:12px;}
+    .featured-badge{display:inline-flex;align-items:center;gap:6px;width:fit-content;
+      font-family:var(--mono);font-size:9px;color:white;background:#c8102e;
+      border-radius:4px;padding:3px 9px;text-transform:uppercase;letter-spacing:0.8px;}
+    .featured-badge-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.8);
+      animation:pulse 1.4s ease-in-out infinite;}
+    .featured-num{font-family:var(--mono);font-size:9.5px;color:var(--ink-light);
+      text-transform:uppercase;letter-spacing:1.2px;}
+    .featured-title{font-family:var(--serif);font-size:clamp(18px,2.2vw,24px);
+      color:var(--ink);line-height:1.2;letter-spacing:-0.2px;}
+    .featured-desc{font-family:var(--mono);font-size:10.5px;color:var(--ink-light);
+      line-height:1.85;}
+    .featured-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .meta-pill{font-family:var(--mono);font-size:9px;color:var(--c-sports-text);
+      background:var(--c-sports-bg);border:1px solid var(--c-sports-border);
+      border-radius:4px;padding:2px 8px;display:flex;align-items:center;gap:4px;}
+    .meta-pill.neutral{color:var(--ink-light);background:var(--off-white);border-color:var(--border);}
+    .featured-cta{font-family:var(--mono);font-size:11px;color:var(--blue-600);
+      font-weight:500;display:flex;align-items:center;gap:5px;margin-top:2px;}
+    .featured-cta::after{content:'→';transition:transform 0.15s;}
+    .featured-card:hover .featured-cta::after{transform:translateX(4px);}
+
+    /* ── ARTICLE CARDS GRID ── */
+    .articles-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;
+      animation:fadeUp 0.4s ease both;animation-delay:0.1s;}
+
+    .article-card{background:white;border:1px solid var(--border);border-radius:13px;
+      text-decoration:none;color:inherit;overflow:hidden;display:flex;flex-direction:column;
+      box-shadow:0 2px 10px rgba(30,58,95,0.05);
+      transition:transform 0.18s,box-shadow 0.18s,border-color 0.18s;}
+    .article-card:hover{transform:translateY(-3px);
+      box-shadow:0 10px 32px rgba(30,58,95,0.12);border-color:var(--blue-200);}
+
+    /* coloured top accent per category */
+    .article-card::before{content:'';display:block;height:3px;width:100%;}
+    .article-card.cat-health::before{background:linear-gradient(90deg,var(--c-health-accent),#34d399);}
+    .article-card.cat-tech::before{background:linear-gradient(90deg,var(--c-tech-accent),var(--blue-400));}
+    .article-card.cat-sports::before{background:linear-gradient(90deg,var(--c-sports-accent),#f9a01b);}
+    .article-card.cat-finance::before{background:linear-gradient(90deg,var(--c-finance-accent),#a78bfa);}
+    .article-card.cat-news::before{background:linear-gradient(90deg,var(--c-news-accent),#fbbf24);}
+
+    .card-inner{padding:20px 22px;display:flex;flex-direction:column;gap:9px;flex:1;}
+    .card-top{display:flex;align-items:center;justify-content:space-between;}
+    .card-cat{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:4px;
+      font-weight:500;text-transform:uppercase;letter-spacing:0.6px;}
+    .cat-health{color:var(--c-health-text);background:var(--c-health-bg);border:1px solid var(--c-health-border);}
+    .cat-tech{color:var(--c-tech-text);background:var(--c-tech-bg);border:1px solid var(--c-tech-border);}
+    .cat-sports{color:var(--c-sports-text);background:var(--c-sports-bg);border:1px solid var(--c-sports-border);}
+    .cat-finance{color:var(--c-finance-text);background:var(--c-finance-bg);border:1px solid var(--c-finance-border);}
+    .cat-news{color:var(--c-news-text);background:var(--c-news-bg);border:1px solid var(--c-news-border);}
+    .card-num{font-family:var(--mono);font-size:9px;color:var(--ink-light);
+      background:var(--off-white);border:1px solid var(--border);border-radius:4px;padding:2px 7px;}
+    .card-title{font-family:var(--serif);font-size:17px;color:var(--ink);
+      line-height:1.28;letter-spacing:-0.1px;flex:1;}
+    .card-desc{font-family:var(--mono);font-size:10px;color:var(--ink-light);line-height:1.8;}
+    .card-footer{display:flex;align-items:center;justify-content:space-between;
+      padding:11px 22px;border-top:1px solid var(--border);background:#fafcff;}
+    .card-read-time{font-family:var(--mono);font-size:9.5px;color:var(--ink-light);
+      display:flex;align-items:center;gap:4px;}
+    .card-read-link{font-family:var(--mono);font-size:10px;color:var(--blue-600);
+      font-weight:500;display:flex;align-items:center;gap:3px;}
+    .card-read-link::after{content:'→';transition:transform 0.15s;}
+    .article-card:hover .card-read-link::after{transform:translateX(3px);}
+
+    /* hidden when filtered out */
+    .article-card.filtered-out{display:none;}
+    .featured-card.filtered-out{display:none;}
+
+    /* empty state */
+    .empty-state{display:none;text-align:center;padding:60px 20px;
+      font-family:var(--mono);font-size:12px;color:var(--ink-light);line-height:2;}
+    .empty-state.show{display:block;}
+
+    /* ── ARTICLE COUNT ── */
+    .article-count{font-family:var(--mono);font-size:10px;color:var(--ink-light);
+      margin-bottom:12px;animation:fadeUp 0.4s ease both;animation-delay:0.07s;}
+    .article-count strong{color:var(--ink-mid);}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+    footer{position:relative;z-index:1;text-align:center;padding:28px;
+      font-family:var(--mono);font-size:10px;color:var(--ink-light);
+      border-top:1px solid var(--border);letter-spacing:0.4px;line-height:2.2;}
+    footer a{color:var(--ink-light);text-decoration:none;transition:color 0.12s;}
+    footer a:hover{color:var(--blue-600);}
+
+    @media(max-width:700px){
+      header{padding:0 18px;}
+      main{padding:28px 14px 60px;}
+      .articles-grid{grid-template-columns:1fr;}
+      .featured-card{grid-template-columns:1fr;}
+      .featured-visual{min-height:150px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="https://bountywall.com">
+    <span class="logo-main">BountyWall</span>
+    <span class="logo-dot">.</span>
+    <span class="logo-tld">com</span>
+    <span class="logo-sub">articles</span>
+  </a>
+  <a class="back-btn" href="https://bountywall.com">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    bountywall.com
+  </a>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <div class="list-hero">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      8 articles · Science-backed · No paywall
+    </div>
+    <h1>Research. Sport.<br/><em>Honest writing.</em></h1>
+    <p>Health guides with real NCBI citations, tech reviews without the hype, sports stats direct from SportRadar. No ads, no fluff.</p>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-cat="all">All articles <span style="opacity:0.5">8</span></button>
+    <button class="filter-tab" data-cat="health">🌿 Health &amp; Science <span style="opacity:0.5">4</span></button>
+    <button class="filter-tab" data-cat="sports">🏀 Sports <span style="opacity:0.5">1</span></button>
+    <button class="filter-tab" data-cat="tech">💻 Tech <span style="opacity:0.5">1</span></button>
+    <button class="filter-tab" data-cat="news">📰 News <span style="opacity:0.5">1</span></button>
+    <button class="filter-tab" data-cat="finance">💰 Crypto &amp; Earning <span style="opacity:0.5">1</span></button>
+  </div>
+
+  <!-- ARTICLE COUNT -->
+  <div class="article-count" id="articleCount"><strong>8</strong> articles</div>
+
+  <!-- FEATURED: Bam 83 (most recent, most dramatic) -->
+  <a class="featured-card" href="/bam-adebayo-83-points-heat-wizards-2026.html" data-cat="sports">
+    <div class="featured-visual">
+      <div class="featured-score">83</div>
+      <div class="featured-score-label">Points · March 10, 2026</div>
+      <div class="featured-teams">MIA 150 &nbsp;·&nbsp; WAS 129</div>
+    </div>
+    <div class="featured-body">
+      <div class="featured-badge"><span class="featured-badge-dot"></span> Latest article</div>
+      <div class="featured-num">Article #7 · 🏀 NBA Recap</div>
+      <div class="featured-title">Bam Adebayo Drops 83 Points. Yes. 83.</div>
+      <div class="featured-desc">One of the greatest individual performances in 64 years of NBA basketball — full real-data box score, all-time ranking (Wilt 100 → Bam 83 → Kobe 81), and the full game story.</div>
+      <div class="featured-meta">
+        <span class="meta-pill">7 min read</span>
+        <span class="meta-pill">Real SportRadar data</span>
+        <span class="meta-pill neutral">March 11, 2026</span>
+      </div>
+      <div class="featured-cta">Read the full story</div>
+    </div>
+  </a>
+
+  <!-- ARTICLES GRID (7 remaining) -->
+  <div class="articles-grid" id="grid">
+
+    <a class="article-card cat-health" href="/ginger-health-benefits-science.html" data-cat="health">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-health">🌿 Health &amp; Science</span>
+          <span class="card-num">#8</span>
+        </div>
+        <div class="card-title">8 Proven Health Benefits of Ginger (What the Science Actually Says)</div>
+        <div class="card-desc">NHS endorses it for morning sickness. NCBI has 4,000+ studies. Here's the honest breakdown — PubChem CID 442793, real clinical trial results, dosage table, and where the evidence is still weak.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          9 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-health" href="/beetroot-health-benefits-science.html" data-cat="health">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-health">🌿 Health &amp; Science</span>
+          <span class="card-num">#6</span>
+        </div>
+        <div class="card-title">7 Proven Health Benefits of Beetroot (What the Science Actually Says)</div>
+        <div class="card-desc">Blood pressure, athletic performance, brain health — NHS trials, PMC studies and PubChem betanin data. Separating real science from wellness-blog hype.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          8 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-health" href="/kefir-health-benefits-science.html" data-cat="health">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-health">🌿 Health &amp; Science</span>
+          <span class="card-num">#3</span>
+        </div>
+        <div class="card-title">Kefir: What Science Actually Says About This Ancient Drink</div>
+        <div class="card-desc">We dug through NIH research to break down every proven benefit — gut health to blood sugar control. Includes what's genuinely proven vs what's still just promising.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          7 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-health" href="/keto-diet-benefits-science.html" data-cat="health">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-health">🌿 Health &amp; Science</span>
+          <span class="card-num">#4</span>
+        </div>
+        <div class="card-title">The Keto Diet: What NIH Research Actually Says About It</div>
+        <div class="card-desc">Hundreds of PubMed studies reviewed. Weight loss, epilepsy, type 2 diabetes — what's genuinely proven, what's overhyped, and the side effects most articles skip.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          8 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-news" href="/gas-prices-surge-2026.html" data-cat="news">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-news">📰 News &amp; Economy</span>
+          <span class="card-num">#5</span>
+        </div>
+        <div class="card-title">Why Gas Prices Are Surging in 2026 — And What Happens Next</div>
+        <div class="card-desc">Gas jumped 34 cents in five days. Exactly why it happened, which states are hit hardest, and what forecasters actually expect for the rest of the year.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          6 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-tech" href="/macbook-neo-review-2026.html" data-cat="tech">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-tech">💻 Tech Review</span>
+          <span class="card-num">#2</span>
+        </div>
+        <div class="card-title">Apple MacBook Neo: The $599 Mac That Changes Everything</div>
+        <div class="card-desc">Apple broke the $999 barrier. Benchmarks, battery life, display — and the one thing Apple still hasn't fixed. A straight-talking review without the fanboy gloss.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          6 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+    <a class="article-card cat-finance" href="/how-to-earn-free-solana-2026.html" data-cat="finance">
+      <div class="card-inner">
+        <div class="card-top">
+          <span class="card-cat cat-finance">💰 Crypto &amp; Earning</span>
+          <span class="card-num">#1</span>
+        </div>
+        <div class="card-title">How to Earn Free Solana in 2026</div>
+        <div class="card-desc">Offerwalls, faucets, staking rewards — ranked by effort vs payout. The methods that actually work, the scams to avoid, and what to realistically expect.</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-read-time">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          5 min read
+        </span>
+        <span class="card-read-link">Read</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    No articles in this category yet.<br/>
+    <span style="font-size:10px">New articles are published regularly — check back soon.</span>
+  </div>
+
+</main>
+
+<footer>
+  articles.bountywall.com &nbsp;·&nbsp; science-backed &amp; honestly written &nbsp;·&nbsp;
+  <a href="https://bountywall.com">bountywall.com</a> &nbsp;·&nbsp;
+  <a href="https://tools.bountywall.com">tools</a> &nbsp;·&nbsp;
+  <a href="https://bountywall.com/earn.html">earn cash</a> &nbsp;·&nbsp;
+  <a href="https://bountywall.com/privacy.html">privacy</a>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.article-card');
+  const featured = document.querySelector('.featured-card');
+  const countEl = document.getElementById('articleCount');
+  const emptyState = document.getElementById('emptyState');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+
+      // update tab styles
+      tabs.forEach(t => {
+        t.className = 'filter-tab';
+      });
+      if (cat === 'all') {
+        tab.classList.add('active');
+      } else {
+        tab.classList.add('active-' + cat);
+      }
+
+      // filter featured
+      if (cat === 'all' || featured.dataset.cat === cat) {
+        featured.classList.remove('filtered-out');
+      } else {
+        featured.classList.add('filtered-out');
+      }
+
+      // filter grid cards
+      let visible = 0;
+      cards.forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.classList.toggle('filtered-out', !match);
+        if (match) visible++;
+      });
+
+      // featured counts too
+      if (!featured.classList.contains('filtered-out')) visible++;
+
+      countEl.innerHTML = '<strong>' + visible + '</strong> article' + (visible !== 1 ? 's' : '') + (cat !== 'all' ? ' in this category' : '');
+      emptyState.classList.toggle('show', visible === 0);
+    });
+  });
+</script>
+
+</body>
+</html>
